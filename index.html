@@ -535,7 +535,15 @@
         grid.innerHTML = `<p style="color:#f87171; padding:12px;">Feed load nahi hua. Internet check karke Refresh dabao.</p>`;
       }
     }
-
+function getThumbUrl(url) {
+  if (!url) return "";
+  const regExp = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?|shorts|live)\/|.*[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+  const match = url.match(regExp);
+  if (match && match[1]) {
+    return `https://i.ytimg.com/vi/${match[1]}/hqdefault.jpg`;
+  }
+  return url;
+}
     function renderVideos(targetGroup) {
       const grid = document.getElementById("videoGrid");
       const completed = currentFeedData.completed || [];
@@ -571,7 +579,7 @@ const ytUrl = v.searchUrl && v.searchUrl.startsWith("http")
 
         card.innerHTML = `
           <div class="thumb-wrap">
-            <img src="${v.thumb}" alt="Thumbnail" onerror="this.src='https://via.placeholder.com/640x360/0d1322/38bdf8?text=No+Thumbnail'" />
+            <img src="${getThumbUrl(v.thumb)}" referrerpolicy="no-referrer" alt="Thumbnail" onerror="this.src='https://via.placeholder.com/640x360/0d1322/38bdf8?text=No+Thumbnail'" />
             <span class="badge-roll">Roll #${v.roll}</span>
             <span class="badge-dur">${v.duration} Min (Timer: ${Math.floor(reqSec / 60)}m ${reqSec % 60}s)</span>
           </div>
