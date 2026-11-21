@@ -560,10 +560,11 @@
         const isLockedByOther = activeTask && !isWatchingThis;
 
         const reqSec = TIMER_MAP[v.duration] || 240;
-        const searchQuery = `${v.title} ${v.channel}`;
-        const ytUrl = v.searchUrl && v.searchUrl.startsWith("http")
-          ? v.searchUrl
-          : `https://www.youtube.com/results?search_query=${encodeURIComponent(searchQuery)}`;
+       const cleanQuery = `${v.title.trim()} ${v.channel.trim()}`.replace(/\s+/g, " ");
+const plusQuery = encodeURIComponent(cleanQuery).replace(/%20/g, "+");
+const ytUrl = v.searchUrl && v.searchUrl.startsWith("http")
+  ? v.searchUrl
+  : `https://www.youtube.com/results?search_query=${plusQuery}`;
 
         const card = document.createElement("div");
         card.className = "yt-card" + (isDone ? " done" : "") + (isLockedByOther ? " locked" : "");
