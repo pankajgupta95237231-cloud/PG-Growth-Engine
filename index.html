@@ -588,7 +588,7 @@ const ytUrl = v.searchUrl && v.searchUrl.startsWith("http")
                       ${isWatchingThis ? "⏳ Watching..." : "▶ Watch on YouTube"}
                      </button>`
               }
-              <button class="btn btn-outline btn-sm" onclick='copyText(${JSON.stringify(searchQuery)})'>Copy</button>
+              <button class="btn btn-outline btn-sm" onclick='copyText(${JSON.stringify(ytUrl)})'>Copy</button>
             </div>
           </div>
         `;
