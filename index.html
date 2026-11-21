@@ -733,7 +733,11 @@ const ytUrl = v.searchUrl && v.searchUrl.startsWith("http")
       const thumb = document.getElementById("pThumb").value.trim();
       const searchUrl = document.getElementById("pSearchUrl").value.trim();
       const duration = Number(document.getElementById("pDuration").value);
-
+let finalThumb = thumb;
+const ytMatch = thumb.match(/(?:youtube\.com\/(?:watch\?v=|shorts\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+if (ytMatch) {
+  finalThumb = `https://img.youtube.com/vi/${ytMatch[1]}/hqdefault.jpg`;
+}
       if (!title || !channel || !thumb) {
         alert("Title, Channel Name aur Thumbnail Link bharna zaroori hai!");
         return;
